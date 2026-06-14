@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Contact — Maybe Tattoo Berlin{% endblock %}
+
+{% block content %}
+
+<section class="page-hero">
+  <h1 class="fade-in">Get in Touch</h1>
+  <p class="fade-in">We're open Mon–Sun, 10:00–22:00.</p>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- studio info -->
+      <div class="contact-info slide-left">
+        <h2>Studio Info</h2>
+        <div class="contact-line"><span class="ci-label">Address</span><span>Dusseldorfer-Straße 48, 10707 Berlin</span></div>
+        <div class="contact-line"><span class="ci-label">Phone</span><a href="tel:+493052014472">+49 30 52014472</a></div>
+        <div class="contact-line"><span class="ci-label">WhatsApp</span><a href="https://wa.me/4917667383970" target="_blank" rel="noopener">+49 176 67383970</a></div>
+        <div class="contact-line"><span class="ci-label">Instagram</span><a href="https://instagram.com/maybe.tattoo.de" target="_blank" rel="noopener">@maybe.tattoo.de</a></div>
+        <div class="contact-line"><span class="ci-label">Hours</span><span>Monday–Sunday, 10:00–22:00</span></div>
+
+        <div class="map-frame" style="margin-top:26px;">
+          <iframe src="https://www.google.com/maps?q=Dusseldorfer-Stra%C3%9Fe%2048,%2010707%20Berlin&output=embed" title="Maybe Tattoo location map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+
+      <!-- quick contact form -->
+      <div class="contact-form slide-right">
+        <h2>Quick Contact</h2>
+        <form data-inline-form>
+          <div class="field-group">
+            <label class="field-label" for="cName">Name</label>
+            <input type="text" class="text-input" id="cName" name="name" placeholder="Your name" required />
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="cMethod">Contact method</label>
+            <select class="select-input" id="cMethod" name="method">
+              <option value="WhatsApp">WhatsApp</option>
+              <option value="Instagram">Instagram</option>
+              <option value="Phone">Phone</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="cDetails">Contact details</label>
+            <input type="text" class="text-input" id="cDetails" name="details" placeholder="Phone number or username" required />
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="cMessage">Message</label>
+            <textarea class="text-input" id="cMessage" name="message" placeholder="How can we help?"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+
+          <div class="success-msg inline-success" style="display:none; margin-top:24px;">
+            <h3>Message sent!</h3>
+            <p>Thank you — we'll get back to you within 15 minutes.</p>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

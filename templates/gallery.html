@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Gallery — Maybe Tattoo Berlin{% endblock %}
+
+{% block content %}
+
+<section class="page-hero">
+  <h1 class="fade-in">Our Work</h1>
+  <p class="fade-in">Browse by style below.</p>
+</section>
+
+<div class="sticky-tabs">
+  <div class="container">
+    <div class="tabs scrollable" data-gallery-tabs data-grid="gallery-grid" data-hash="true">
+      <button class="tab active" data-category="grafik">Tattoo Grafik</button>
+      <button class="tab" data-category="realismus">Tattoo Realismus</button>
+      <button class="tab" data-category="mini">Mini Tattoo</button>
+      <button class="tab" data-category="overlapping">Overlapping</button>
+      <button class="tab" data-category="farbrealismus">Farbrealismus</button>
+      <button class="tab" data-category="polynesien">Zierpflanze / Polynesien</button>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div id="gallery-grid" class="uniform-grid" data-count="12" data-w="600" data-h="800"></div>
+  </div>
+</section>
+
+<section class="ig-teaser">
+  <div class="container">
+    <a href="https://instagram.com/maybe.tattoo.de" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      See more of our daily work on Instagram →
+    </a>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" aria-label="Close">&times;</button>
+  <button class="lb-prev" aria-label="Previous">&#8249;</button>
+  <img src="" alt="Gallery image enlarged" />
+  <button class="lb-next" aria-label="Next">&#8250;</button>
+</div>
+
+{% endblock %}

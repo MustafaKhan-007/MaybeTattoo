@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Our Artists — Maybe Tattoo Berlin{% endblock %}
+
+{% set artists = [
+  {'name':'Valerii','years':20,'count':2935,'styles':['Realistic','Graphic','Japanese','Biomechanical','Old School'],'primary':'Realistic','sig':1,'gallery':'realismus'},
+  {'name':'Viktoria','years':6,'count':1213,'styles':['Realismus','Japan','Anime'],'primary':'Realismus','sig':2,'gallery':'realismus'},
+  {'name':'Christian','years':22,'count':4287,'styles':['Full Realistic','Micro Realism'],'primary':'Realismus','sig':3,'gallery':'realismus'},
+  {'name':'Kris','years':6,'count':1167,'styles':['Realismus'],'primary':'Realismus','sig':4,'gallery':'realismus'},
+  {'name':'Anastasija','years':5,'count':1360,'styles':['Realismus','Grafik'],'primary':'Realismus','sig':5,'gallery':'realismus'},
+  {'name':'Fred','years':7,'count':1860,'styles':['Realismus'],'primary':'Realismus','sig':6,'gallery':'realismus'},
+  {'name':'Weys','years':7,'count':1894,'styles':['Realistic','Graphic','Minimalistic'],'primary':'Realistic','sig':7,'gallery':'grafik'},
+  {'name':'Aleks','years':16,'count':2481,'styles':['Realistic','Graphic','Minimalistic'],'primary':'Graphic','sig':8,'gallery':'grafik'},
+  {'name':'Igor','years':12,'count':1232,'styles':['Realistic','Graphic'],'primary':'Graphic','sig':9,'gallery':'grafik'},
+  {'name':'Natali','years':6,'count':938,'styles':['Minimalistic','Realistic','Graphic'],'primary':'Minimalistic','sig':10,'gallery':'mini'},
+  {'name':'Julia','years':5,'count':650,'styles':['Minimalistic','Graphic'],'primary':'Minimalistic','sig':11,'gallery':'mini'},
+  {'name':'Rolando','years':6,'count':2235,'styles':['Grafik','Realismus'],'primary':'Grafik','sig':12,'gallery':'grafik'},
+  {'name':'Andrey','years':5,'count':1931,'styles':['Realistic','Graphic','Minimalistic'],'primary':'Realistic','sig':13,'gallery':'grafik'},
+  {'name':'Evgeny','years':7,'count':2846,'styles':['Realistic','Graphic','Minimalistic'],'primary':'Graphic','sig':14,'gallery':'grafik'},
+  {'name':'Oleg','years':9,'count':2635,'styles':['Grafik','Realismus','Cover Up'],'primary':'Grafik','sig':15,'gallery':'grafik'},
+  {'name':'Alex','years':21,'count':4845,'styles':['Realistic','Graphic','Minimalistic'],'primary':'Realistic','sig':16,'gallery':'grafik'}
+] %}
+
+{% block content %}
+
+<section class="page-hero">
+  <h1 class="fade-in">Our Artists</h1>
+  <p class="fade-in">Each artist brings a unique style and years of mastery.</p>
+</section>
+
+<div class="sticky-tabs">
+  <div class="container">
+    <div class="tabs scrollable" data-artist-filter>
+      <button class="tab active" data-filter="all">All</button>
+      <button class="tab" data-filter="realis">Realismus</button>
+      <button class="tab" data-filter="graf">Grafik</button>
+      <button class="tab" data-filter="minimal">Minimalistic</button>
+      <button class="tab" data-filter="jap">Japanese</button>
+      <button class="tab" data-filter="anime">Color</button>
+      <button class="tab" data-filter="cover">Cover Up</button>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="flip-grid">
+      {% for a in artists %}
+      <div class="flip-card fade-in" data-styles="{{ a.styles | join(' ') }} {% if 'Japan' in a.styles or 'Japanese' in a.styles %}japanese{% endif %} {% if 'Anime' in a.styles or 'Color' in a.styles %}anime color{% endif %}">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <img src="https://source.unsplash.com/400x500/?tattoo,artist&sig={{ a.sig }}"
+                 onerror="this.onerror=null;this.src='https://picsum.photos/seed/artist-{{ a.sig }}/400/500';"
+                 alt="{{ a.name }}" loading="lazy" />
+            <div class="flip-front-info">
+              <h3 class="artist-name">{{ a.name }}</h3>
+              <div class="primary-style">{{ a.primary }}</div>
+              <div class="exp">{{ a.years }} Years Experience</div>
+            </div>
+          </div>
+          <div class="flip-back">
+            <h3>{{ a.name }}</h3>
+            <div class="back-meta">{{ a.years }} Years · {{ '{:,}'.format(a.count) }} tattoos</div>
+            <div class="back-styles">{{ a.styles | join(' · ') }}</div>
+            <p class="bio">Specializing in {{ a.primary | lower }} work, {{ a.name }} brings a painterly precision to every piece. Years of dedicated craft translate into tattoos that age beautifully and tell your story.</p>
+            <div class="back-actions">
+              <a href="{{ url_for('booking', artist=a.name) }}" class="btn btn-primary">Book with {{ a.name }}</a>
+              <a href="{{ url_for('gallery') }}#{{ a.gallery }}" class="see-work">See Their Work →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}
