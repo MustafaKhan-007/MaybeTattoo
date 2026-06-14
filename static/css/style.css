@@ -305,9 +305,11 @@ a { color: inherit; text-decoration: none; }
 .studio-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease); }
 .studio-photo:hover img { transform: scale(1.06); }
 .celebs-section { background: var(--black-2); }
+.celebs-section .container { text-align: center; }
 .celebs-row { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
 .celeb-circle { width: 100px; height: 100px; border-radius: 50%; overflow: hidden; border: 2px solid var(--gold); }
 .celeb-circle img { width: 100%; height: 100%; object-fit: cover; }
+.celebs-badge { display: inline-flex; gap: 12px; align-items: center; margin: 0 auto; padding: 16px 30px; border: 1px solid rgba(201,168,76,0.4); border-radius: 50px; background: rgba(201,168,76,0.06); color: var(--gold); font-family: var(--serif); font-size: 1.05rem; }
 .map-wrap { border-radius: var(--radius); overflow: hidden; height: 460px; border: 1px solid rgba(240,237,232,0.1); }
 .map-wrap.small { height: 280px; margin-top: 24px; }
 .map-wrap iframe { width: 100%; height: 100%; border: 0; filter: grayscale(0.3) invert(0.9) hue-rotate(180deg); }
@@ -379,6 +381,7 @@ a { color: inherit; text-decoration: none; }
   backdrop-filter: blur(10px); border-top: 1px solid rgba(240,237,232,0.1); padding: 18px 28px;
   display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
 }
+.cookie-banner[hidden] { display: none; }
 .cookie-banner p { font-size: 0.88rem; color: var(--muted); max-width: 760px; }
 .cookie-actions { display: flex; gap: 12px; }
 

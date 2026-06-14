@@ -23,9 +23,7 @@ STUDIO = {
     "maps_embed": (
         "https://www.google.com/maps?q=Dusseldorfer-Stra%C3%9Fe+48,+10707+Berlin&output=embed"
     ),
-    # No public YouTube id was discoverable in the source markup, so the home
-    # page uses a styled placeholder player (see templates/index.html).
-    "youtube_id": "",
+    "youtube_id": "mNSD6xaSajs",
     "legal": {
         "datenschutz": "http://maybetattoo.de/datenschutz",
         "agb": "http://maybetattoo.de/agb",
@@ -116,13 +114,13 @@ FEATURED_SLUGS = ["valerii", "christian", "weys", "aleks"]
 FEATURED_ARTISTS = [ARTISTS_BY_SLUG[s] for s in FEATURED_SLUGS]
 
 # ---------------------------------------------------------------- services
+# Only the styles that have a real working source gallery on the original site.
 SERVICES = [
     {"slug": "realism", "icon": "fa-eye", "key": "svc_realism"},
     {"slug": "graphic", "icon": "fa-pen-nib", "key": "svc_graphic"},
     {"slug": "mini", "icon": "fa-feather", "key": "svc_mini"},
     {"slug": "overlapping", "icon": "fa-layer-group", "key": "svc_overlapping"},
-    {"slug": "colour", "icon": "fa-palette", "key": "svc_colour"},
-    {"slug": "polynesian", "icon": "fa-leaf", "key": "svc_polynesian"},
+    {"slug": "piercing", "icon": "fa-gem", "key": "svc_piercing"},
 ]
 
 # ---------------------------------------------------------------- gallery
@@ -131,8 +129,7 @@ GALLERY_CATEGORIES = [
     {"slug": "graphic", "key": "cat_graphic"},
     {"slug": "mini", "key": "cat_mini"},
     {"slug": "overlapping", "key": "cat_overlapping"},
-    {"slug": "colour", "key": "cat_colour"},
-    {"slug": "polynesian", "key": "cat_polynesian"},
+    {"slug": "piercing", "key": "cat_piercing"},
 ]
 
 

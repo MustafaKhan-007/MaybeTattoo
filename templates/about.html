@@ -70,10 +70,9 @@
       <h2 class="display" data-i18n="celebs_title">{{ t('celebs_title') }}</h2>
       <p data-i18n="celebs_sub">{{ t('celebs_sub') }}</p>
     </div>
-    <div class="celebs-row reveal">
-      {% for src in studio_images[:6] %}
-      <span class="celeb-circle"><img src="{{ url_for('static', filename=src) }}" alt="Guest" loading="lazy" /></span>
-      {% endfor %}
+    <div class="celebs-badge reveal">
+      <i class="fa-solid fa-star"></i>
+      <span data-i18n="celebs_badge">{{ t('celebs_badge') }}</span>
     </div>
   </div>
 </section>

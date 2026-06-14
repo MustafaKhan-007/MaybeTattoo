@@ -2,20 +2,20 @@
   "artists": {
     "valerii": "img/artists/valerii.png",
     "viktoria": "img/artists/viktoria.png",
-    "christian": "img/artists/christian.png",
+    "fred": "img/artists/fred.png",
     "kris": "img/artists/kris.png",
     "anastasija": "img/artists/anastasija.png",
-    "fred": "img/artists/fred.png",
+    "christian": "img/artists/christian.png",
     "weys": "img/artists/weys.png",
     "aleks": "img/artists/aleks.png",
     "igor": "img/artists/igor.png",
     "natali": "img/artists/natali.png",
     "julia": "img/artists/julia.png",
     "alex": "img/artists/alex.png",
+    "oleg": "img/artists/oleg.png",
     "rolando": "img/artists/rolando.png",
     "andrey": "img/artists/andrey.png",
-    "evgeny": "img/artists/evgeny.png",
-    "oleg": "img/artists/oleg.png"
+    "evgeny": "img/artists/evgeny.png"
   },
   "gallery": {
     "realism": [
@@ -82,16 +82,9 @@
       "img/gallery/overlapping/overlapping_08.jpeg",
       "img/gallery/overlapping/overlapping_09.jpeg"
     ],
-    "colour": [
-      "img/gallery/colour/colour_01.jpeg",
-      "img/gallery/colour/colour_02.jpeg"
-    ],
-    "polynesian": [
-      "img/gallery/polynesian/polynesian_01.JPG",
-      "img/gallery/polynesian/polynesian_02.JPG",
-      "img/gallery/polynesian/polynesian_03.JPG",
-      "img/gallery/polynesian/polynesian_04.JPG",
-      "img/gallery/polynesian/polynesian_05.JPG"
+    "piercing": [
+      "img/gallery/piercing/piercing_01.jpeg",
+      "img/gallery/piercing/piercing_02.jpeg"
     ]
   },
   "studio": [
@@ -100,11 +93,7 @@
     "img/studio/studio_03.jpg",
     "img/studio/studio_04.jpg",
     "img/studio/studio_05.jpg",
-    "img/studio/studio_06.jpg",
-    "img/studio/studio_07.jpg",
-    "img/studio/studio_08.jpg",
-    "img/studio/studio_09.jpg",
-    "img/studio/studio_10.jpg"
+    "img/studio/studio_06.jpg"
   ],
   "brand": {
     "logo": "img/brand/logo.png"

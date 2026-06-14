@@ -7,6 +7,9 @@ env/
 .gitignore
 *.log
 bookings.jsonl
+_raw/
+fetch_pages.py
+build_assets.py
 .idea/
 .vscode/
 README.md

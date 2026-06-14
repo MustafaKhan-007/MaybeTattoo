@@ -112,13 +112,17 @@ This repo includes `render.yaml`, so the easiest path is a **Blueprint** deploy:
 ## Re-scraping the imagery
 
 The images under `static/img/` were downloaded from the live site. To refresh
-them, run the scrapers in order (requires `requests` + `beautifulsoup4`):
+them, run the two scrapers in order (requires `requests` + `beautifulsoup4`):
 
 ```bash
-python scrape_assets.py    # download raw HTML + all Tilda assets
-python parse_assets.py     # map gallery popups -> image URLs
-python build_assets.py     # organise into static/img/ + write index.json
+python fetch_pages.py      # download raw HTML of both pages into _raw/
+python build_assets.py     # extract + organise into static/img/ + write index.json
 ```
+
+`build_assets.py` matches artist portraits to names by their vertical position
+in the original Zero-Block layout, pulls the real studio interior photos
+(`IMG_648x`), and downloads only the gallery categories that have a working
+source gallery (Realism, Graphic, Mini, Overlapping, Piercing).
 
 `data.py` reads `static/img/index.json`, so the site always reflects whatever
 imagery is present.
@@ -127,13 +131,16 @@ imagery is present.
 
 ## Notes & assumptions
 
-- **YouTube video:** no public video id was discoverable in the original page's
-  markup (Tilda loads it dynamically), so the home page shows a styled
-  placeholder player labelled *"How We Work at MaybeTattoo"*. Drop a real id
-  into `STUDIO["youtube_id"]` in `data.py` to embed a live `<iframe>`.
-- **Artist portraits** were matched to names by document order from the original
-  Zero-Block layout; a couple of face↔name pairings may be approximate in this
-  prototype.
+- **YouTube video:** embedded directly on the home page
+  (`STUDIO["youtube_id"] = "mNSD6xaSajs"`) with `rel=0&modestbranding=1`.
+- **Gallery categories:** only the styles the original site actually serves
+  working image galleries for are included — **Realism, Graphic, Mini Tattoo,
+  Overlapping, Piercing**. The German "Colour Realism" and "Polynesian /
+  Decorative" tabs are broken on the source site (no image popup exists), so
+  they are intentionally omitted rather than filled with mismatched photos.
+- **Artist portraits** are matched to names by their vertical position in the
+  original Zero-Block layout. Because that layout is absolutely-positioned, a
+  pairing may occasionally be approximate.
 - **Pricing** is intentionally only revealed inside the booking accordion on
   `/artists`, never on the home page — per the brief.
 - Legal links (Datenschutz, AGB, Impressum, Cookies) point to the originals on
