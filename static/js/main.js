@@ -167,7 +167,10 @@
       filter(cat);
       history.replaceState(null, "", cat === "all" ? location.pathname : "?category=" + cat);
     }));
-    if (window.GALLERY_ACTIVE && window.GALLERY_ACTIVE !== "all") filter(window.GALLERY_ACTIVE);
+    const initialCat =
+      new URLSearchParams(location.search).get("category") ||
+      (document.querySelector(".filter-btn.active") || {}).dataset?.filter;
+    if (initialCat && initialCat !== "all") filter(initialCat);
   }
 
   /* ---------------- lightbox ---------------- */

@@ -35,6 +35,28 @@ NAMES = ["Valerii","Viktoria","Christian","Kris","Anastasija","Fred","Weys",
          "Aleks","Igor","Natali","Julia","Alex","Rolando","Andrey","Evgeny","Oleg"]
 PORTRAIT_RE = re.compile(r"(noroot|IMG_0501|ohFk|Remove-bg)", re.I)
 
+# Verified artist -> portrait mapping. The studio's artist section is a Tilda
+# Zero Block (absolutely-positioned), so portraits were confirmed by visually
+# inspecting each image and matching it to the name that sits directly below it
+# in the layout (cross-checked against each artist's gender). Viktoria has no
+# portrait at her row in the source, so she is given a free unused female photo.
+BASE = "https://static.tildacdn.com/"
+ARTIST_PORTRAITS = {
+    "valerii":    BASE + "tild3835-3666-4961-b436-306437666635/noroot.png",
+    "fred":       BASE + "tild3639-6132-4236-b435-386566313837/ohFkPYaZOjojMbRclCEN.png",
+    "kris":       BASE + "tild6133-3862-4733-a561-356534386666/IMG_0501.png",
+    "anastasija": BASE + "tild3462-6634-4364-a166-313834306334/noroot.png",
+    "christian":  BASE + "tild6630-3965-4564-b764-623163626633/noroot.png",
+    "weys":       BASE + "tild3561-6265-4736-b665-613662326637/Remove-bgai_17279795.png",
+    "aleks":      BASE + "tild3131-6563-4962-b931-376564303365/noroot.png",
+    "igor":       BASE + "tild6266-6132-4664-b330-356538623731/noroot.png",
+    "oleg":       BASE + "tild3562-3332-4363-a164-656533343830/noroot.png",
+    "rolando":    BASE + "tild3134-6563-4163-b833-626465633232/noroot.png",
+    "andrey":     BASE + "tild3634-6565-4436-b636-303463393362/noroot.png",
+    "evgeny":     BASE + "tild3839-3539-4137-b565-393030333961/noroot.png",
+    "viktoria":   BASE + "tild6432-3133-4065-a230-653364656336/noroot.png",
+}
+
 
 def get(url):
     if url.startswith("//"): url = "https:" + url
@@ -63,31 +85,8 @@ def first_top(eid):
     return None
 
 def build_artists():
-    i = de.find("Valerii")
-    a, b = de.rfind('id="rec', 0, i), de.find('id="rec', i)
-    soup = BeautifulSoup(de[a:b], "html.parser")
-    names, imgs = [], []
-    seen_names = set()
-    for el in soup.find_all(class_="tn-elem"):
-        eid = el.get("data-elem-id")
-        if not eid: continue
-        img = el.find("img")
-        if img and img.get("data-original") and PORTRAIT_RE.search(img["data-original"]):
-            t = first_top(eid)
-            if t is not None: imgs.append((t, img["data-original"]))
-        else:
-            txt = el.get_text(strip=True).lstrip("# ").strip()
-            if txt in NAMES and txt not in seen_names:
-                t = first_top(eid)
-                if t is not None:
-                    names.append((t, txt)); seen_names.add(txt)
-    names.sort(); imgs.sort()
-    mapping = {}
-    for (nt, name), (it, url) in zip(names, imgs):
-        mapping[name.lower()] = url
-    # download
     out = {}
-    for slug, url in mapping.items():
+    for slug, url in ARTIST_PORTRAITS.items():
         try:
             save(get(url), os.path.join(OUT, "artists", f"{slug}.png"))
             out[slug] = f"img/artists/{slug}.png"

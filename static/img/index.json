@@ -1,7 +1,6 @@
 {
   "artists": {
     "valerii": "img/artists/valerii.png",
-    "viktoria": "img/artists/viktoria.png",
     "fred": "img/artists/fred.png",
     "kris": "img/artists/kris.png",
     "anastasija": "img/artists/anastasija.png",
@@ -9,13 +8,11 @@
     "weys": "img/artists/weys.png",
     "aleks": "img/artists/aleks.png",
     "igor": "img/artists/igor.png",
-    "natali": "img/artists/natali.png",
-    "julia": "img/artists/julia.png",
-    "alex": "img/artists/alex.png",
     "oleg": "img/artists/oleg.png",
     "rolando": "img/artists/rolando.png",
     "andrey": "img/artists/andrey.png",
-    "evgeny": "img/artists/evgeny.png"
+    "evgeny": "img/artists/evgeny.png",
+    "viktoria": "img/artists/viktoria.png"
   },
   "gallery": {
     "realism": [
