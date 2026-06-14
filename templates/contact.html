@@ -1,70 +1,114 @@
 {% extends "base.html" %}
-{% block title %}Contact — Maybe Tattoo Berlin{% endblock %}
+{% block title %}Contact & Booking — MaybeTattoo Berlin{% endblock %}
 
 {% block content %}
-
-<section class="page-hero">
-  <h1 class="fade-in">Get in Touch</h1>
-  <p class="fade-in">We're open Mon–Sun, 10:00–22:00.</p>
-</section>
-
-<section class="section">
-  <div class="container">
-    <div class="contact-grid">
-
-      <!-- studio info -->
-      <div class="contact-info slide-left">
-        <h2>Studio Info</h2>
-        <div class="contact-line"><span class="ci-label">Address</span><span>Dusseldorfer-Straße 48, 10707 Berlin</span></div>
-        <div class="contact-line"><span class="ci-label">Phone</span><a href="tel:+493052014472">+49 30 52014472</a></div>
-        <div class="contact-line"><span class="ci-label">WhatsApp</span><a href="https://wa.me/4917667383970" target="_blank" rel="noopener">+49 176 67383970</a></div>
-        <div class="contact-line"><span class="ci-label">Instagram</span><a href="https://instagram.com/maybe.tattoo.de" target="_blank" rel="noopener">@maybe.tattoo.de</a></div>
-        <div class="contact-line"><span class="ci-label">Hours</span><span>Monday–Sunday, 10:00–22:00</span></div>
-
-        <div class="map-frame" style="margin-top:26px;">
-          <iframe src="https://www.google.com/maps?q=Dusseldorfer-Stra%C3%9Fe%2048,%2010707%20Berlin&output=embed" title="Maybe Tattoo location map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-      </div>
-
-      <!-- quick contact form -->
-      <div class="contact-form slide-right">
-        <h2>Quick Contact</h2>
-        <form data-inline-form>
-          <div class="field-group">
-            <label class="field-label" for="cName">Name</label>
-            <input type="text" class="text-input" id="cName" name="name" placeholder="Your name" required />
-          </div>
-
-          <div class="field-group">
-            <label class="field-label" for="cMethod">Contact method</label>
-            <select class="select-input" id="cMethod" name="method">
-              <option value="WhatsApp">WhatsApp</option>
-              <option value="Instagram">Instagram</option>
-              <option value="Phone">Phone</option>
-            </select>
-          </div>
-
-          <div class="field-group">
-            <label class="field-label" for="cDetails">Contact details</label>
-            <input type="text" class="text-input" id="cDetails" name="details" placeholder="Phone number or username" required />
-          </div>
-
-          <div class="field-group">
-            <label class="field-label" for="cMessage">Message</label>
-            <textarea class="text-input" id="cMessage" name="message" placeholder="How can we help?"></textarea>
-          </div>
-
-          <button type="submit" class="btn btn-primary btn-block">Send Message</button>
-
-          <div class="success-msg inline-success" style="display:none; margin-top:24px;">
-            <h3>Message sent!</h3>
-            <p>Thank you — we'll get back to you within 15 minutes.</p>
-          </div>
-        </form>
-      </div>
-
-    </div>
+<section class="page-hero short">
+  <div class="page-hero-overlay"></div>
+  <div class="container page-hero-content reveal">
+    <h1 class="display" data-i18n="contact_title">{{ t('contact_title') }}</h1>
+    <p data-i18n="contact_sub">{{ t('contact_sub') }}</p>
   </div>
 </section>
 
+<section class="section">
+  <div class="container contact-grid">
+    <!-- Left: contact info -->
+    <div class="contact-info reveal">
+      <h2 class="display" data-i18n="contact_info">{{ t('contact_info') }}</h2>
+      <ul class="contact-list">
+        <li><i class="fa-solid fa-phone"></i><div>
+          <span data-i18n="contact_phone">{{ t('contact_phone') }}</span>
+          <a href="tel:{{ studio.phone_tel }}">{{ studio.phone_display }}</a></div></li>
+        <li><i class="fa-brands fa-whatsapp"></i><div>WhatsApp
+          <a href="{{ studio.whatsapp }}" target="_blank" rel="noopener">{{ studio.whatsapp }}</a></div></li>
+        <li><i class="fa-brands fa-instagram"></i><div>Instagram
+          <a href="{{ studio.instagram }}" target="_blank" rel="noopener">@maybe.tattoo.de</a></div></li>
+        <li><i class="fa-solid fa-location-dot"></i><div>
+          <span data-i18n="contact_address">{{ t('contact_address') }}</span>
+          <span>{{ studio.address }}</span></div></li>
+        <li><i class="fa-solid fa-clock"></i><div>
+          <span data-i18n="contact_hours">{{ t('contact_hours') }}</span>
+          <span>{{ studio.hours }}</span></div></li>
+      </ul>
+      <div class="map-wrap small">
+        <iframe src="{{ studio.maps_embed }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                title="MaybeTattoo location"></iframe>
+      </div>
+    </div>
+
+    <!-- Right: wizard form -->
+    <div class="booking-wizard reveal">
+      <div class="wizard-progress">
+        <div class="wizard-step active" data-step-indicator="1"><span>1</span><small data-i18n="step1_title">{{ t('step1_title') }}</small></div>
+        <div class="wizard-step" data-step-indicator="2"><span>2</span><small data-i18n="step2_title">{{ t('step2_title') }}</small></div>
+        <div class="wizard-step" data-step-indicator="3"><span>3</span><small data-i18n="step3_title">{{ t('step3_title') }}</small></div>
+      </div>
+
+      <form id="wizardForm">
+        <!-- Step 1 -->
+        <div class="wizard-pane active" data-step="1">
+          <fieldset>
+            <legend data-i18n="q_sketch">{{ t('q_sketch') }}</legend>
+            <label class="radio-card"><input type="radio" name="sketch" value="have_sketch" required><span data-i18n="opt_have_sketch">{{ t('opt_have_sketch') }}</span></label>
+            <label class="radio-card"><input type="radio" name="sketch" value="have_idea"><span data-i18n="opt_have_idea">{{ t('opt_have_idea') }}</span></label>
+            <label class="radio-card"><input type="radio" name="sketch" value="need_consult"><span data-i18n="opt_need_consult">{{ t('opt_need_consult') }}</span></label>
+          </fieldset>
+          <fieldset>
+            <legend data-i18n="q_placement">{{ t('q_placement') }}</legend>
+            <div class="chip-group">
+              {% for p in ['hand','leg','neck','back','chest','other'] %}
+              <label class="chip"><input type="radio" name="placement" value="{{ p }}"><span data-i18n="place_{{ p }}">{{ t('place_' ~ p) }}</span></label>
+              {% endfor %}
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend data-i18n="q_size">{{ t('q_size') }}</legend>
+            <div class="chip-group">
+              <label class="chip"><input type="radio" name="size" value="s"><span data-i18n="size_s">{{ t('size_s') }}</span></label>
+              <label class="chip"><input type="radio" name="size" value="m"><span data-i18n="size_m">{{ t('size_m') }}</span></label>
+              <label class="chip"><input type="radio" name="size" value="l"><span data-i18n="size_l">{{ t('size_l') }}</span></label>
+            </div>
+          </fieldset>
+          <div class="wizard-actions">
+            <span></span>
+            <button type="button" class="btn btn-primary" data-next data-i18n="btn_next">{{ t('btn_next') }}</button>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="wizard-pane" data-step="2">
+          <label><span data-i18n="form_name">{{ t('form_name') }}</span>
+            <input type="text" name="name" /></label>
+          <label><span data-i18n="q_contact_handle">{{ t('q_contact_handle') }}</span>
+            <input type="text" name="contact_handle" /></label>
+          <fieldset>
+            <legend data-i18n="q_contact_method">{{ t('q_contact_method') }}</legend>
+            <div class="chip-group">
+              {% for m in ['whatsapp','telegram','instagram','phone'] %}
+              <label class="chip"><input type="radio" name="contact_method" value="{{ m }}"><span data-i18n="method_{{ m }}">{{ t('method_' ~ m) }}</span></label>
+              {% endfor %}
+            </div>
+          </fieldset>
+          <label><span data-i18n="form_date">{{ t('form_date') }}</span>
+            <input type="date" name="date" /></label>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-ghost" data-back data-i18n="btn_back">{{ t('btn_back') }}</button>
+            <button type="button" class="btn btn-primary" data-next data-i18n="btn_next">{{ t('btn_next') }}</button>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="wizard-pane" data-step="3">
+          <h3 data-i18n="summary_title">{{ t('summary_title') }}</h3>
+          <ul class="summary-list" id="summaryList"></ul>
+          <div class="wizard-actions">
+            <button type="button" class="btn btn-ghost" data-back data-i18n="btn_back">{{ t('btn_back') }}</button>
+            <button type="submit" class="btn btn-primary" data-i18n="btn_submit">{{ t('btn_submit') }}</button>
+          </div>
+          <p class="form-success" id="wizardSuccess" hidden data-i18n="form_thanks">{{ t('form_thanks') }}</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
 {% endblock %}

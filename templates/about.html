@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %}About Us — MaybeTattoo Berlin{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="page-hero-overlay"></div>
+  <div class="container page-hero-content reveal">
+    <h1 class="display" data-i18n="about_title">{{ t('about_title') }}</h1>
+    <p data-i18n="about_sub">{{ t('about_sub') }}</p>
+  </div>
+</section>
+
+<!-- Studio story -->
+<section class="section">
+  <div class="container narrow">
+    <div class="section-head reveal">
+      <h2 class="display" data-i18n="about_story_title">{{ t('about_story_title') }}</h2>
+    </div>
+    <p class="story-text reveal" data-i18n="about_story">{{ t('about_story') }}</p>
+  </div>
+</section>
+
+<!-- Why choose us -->
+<section class="section why-section">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 class="display" data-i18n="why_title">{{ t('why_title') }}</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-col reveal">
+        <i class="fa-solid fa-award"></i>
+        <h3 data-i18n="why_exp">{{ t('why_exp') }}</h3>
+        <p data-i18n="why_exp_d">{{ t('why_exp_d') }}</p>
+      </div>
+      <div class="why-col reveal">
+        <i class="fa-solid fa-star"></i>
+        <h3 data-i18n="why_reviews">{{ t('why_reviews') }}</h3>
+        <p data-i18n="why_reviews_d">{{ t('why_reviews_d') }}</p>
+      </div>
+      <div class="why-col reveal">
+        <i class="fa-solid fa-trophy"></i>
+        <h3 data-i18n="why_compete">{{ t('why_compete') }}</h3>
+        <p data-i18n="why_compete_d">{{ t('why_compete_d') }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Studio interior strip -->
+<section class="section studio-section">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 class="display" data-i18n="studio_title">{{ t('studio_title') }}</h2>
+      <p data-i18n="studio_sub">{{ t('studio_sub') }}</p>
+    </div>
+  </div>
+  <div class="studio-strip">
+    {% for src in studio_images %}
+    <a class="studio-photo reveal" href="{{ url_for('static', filename=src) }}" data-lightbox data-category="Studio">
+      <img src="{{ url_for('static', filename=src) }}" alt="Studio interior" loading="lazy" />
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Celebrities -->
+<section class="section celebs-section">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 class="display" data-i18n="celebs_title">{{ t('celebs_title') }}</h2>
+      <p data-i18n="celebs_sub">{{ t('celebs_sub') }}</p>
+    </div>
+    <div class="celebs-row reveal">
+      {% for src in studio_images[:6] %}
+      <span class="celeb-circle"><img src="{{ url_for('static', filename=src) }}" alt="Guest" loading="lazy" /></span>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Location map -->
+<section class="section map-section">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 class="display" data-i18n="location_title">{{ t('location_title') }}</h2>
+      <p>{{ studio.address }}</p>
+    </div>
+    <div class="map-wrap reveal">
+      <iframe src="{{ studio.maps_embed }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              title="MaybeTattoo location"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox (shared) -->
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+  <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+  <figure class="lightbox-figure">
+    <img src="" alt="" id="lightboxImg" />
+    <figcaption><span class="lightbox-cat" id="lightboxCat"></span></figcaption>
+  </figure>
+  <button class="lightbox-nav next" id="lightboxNext" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+</div>
+{% endblock %}

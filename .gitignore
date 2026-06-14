@@ -1,11 +1,10 @@
 __pycache__/
-*.py[cod]
-*.egg-info/
+*.pyc
 .venv/
 venv/
 env/
-.env
 *.log
+bookings.jsonl
 .DS_Store
 .idea/
 .vscode/

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Page Not Found — MaybeTattoo Berlin{% endblock %}
+{% block content %}
+<section class="page-hero short">
+  <div class="page-hero-overlay"></div>
+  <div class="container page-hero-content">
+    <h1 class="display">404</h1>
+    <p>This page doesn't exist. Let's get you back on track.</p>
+    <a href="{{ url_for('home') }}" class="btn btn-primary">Back Home</a>
+  </div>
+</section>
+{% endblock %}

@@ -1,46 +1,55 @@
 {% extends "base.html" %}
-{% block title %}Gallery — Maybe Tattoo Berlin{% endblock %}
+{% block title %}Gallery — MaybeTattoo Berlin{% endblock %}
 
 {% block content %}
-
-<section class="page-hero">
-  <h1 class="fade-in">Our Work</h1>
-  <p class="fade-in">Browse by style below.</p>
+<section class="page-hero short">
+  <div class="page-hero-overlay"></div>
+  <div class="container page-hero-content reveal">
+    <h1 class="display" data-i18n="gallery_page_title">{{ t('gallery_page_title') }}</h1>
+    <p data-i18n="gallery_page_sub">{{ t('gallery_page_sub') }}</p>
+  </div>
 </section>
 
-<div class="sticky-tabs">
+<div class="filter-bar" id="filterBar">
+  <div class="filter-inner">
+    <button class="filter-btn {{ 'active' if active_category == 'all' }}" data-filter="all" data-i18n="filter_all">{{ t('filter_all') }}</button>
+    {% for c in gallery_categories %}
+    <button class="filter-btn {{ 'active' if active_category == c.slug }}" data-filter="{{ c.slug }}" data-i18n="{{ c.key }}">{{ t(c.key) }}</button>
+    {% endfor %}
+  </div>
+</div>
+
+<section class="section gallery-page">
   <div class="container">
-    <div class="tabs scrollable" data-gallery-tabs data-grid="gallery-grid" data-hash="true">
-      <button class="tab active" data-category="grafik">Tattoo Grafik</button>
-      <button class="tab" data-category="realismus">Tattoo Realismus</button>
-      <button class="tab" data-category="mini">Mini Tattoo</button>
-      <button class="tab" data-category="overlapping">Overlapping</button>
-      <button class="tab" data-category="farbrealismus">Farbrealismus</button>
-      <button class="tab" data-category="polynesien">Zierpflanze / Polynesien</button>
+    <div class="masonry gallery-masonry" id="galleryGrid">
+      {% for img in images %}
+      <a class="masonry-item reveal" href="{{ url_for('static', filename=img.src) }}"
+         data-lightbox data-category="{{ img.category }}">
+        <img src="{{ url_for('static', filename=img.src) }}" alt="{{ img.category }} tattoo" loading="lazy" />
+        <span class="masonry-cat" data-i18n="cat_{{ img.category }}">{{ t('cat_' ~ img.category) }}</span>
+      </a>
+      {% endfor %}
     </div>
   </div>
-</div>
-
-<section class="section">
-  <div class="container">
-    <div id="gallery-grid" class="uniform-grid" data-count="12" data-w="600" data-h="800"></div>
-  </div>
 </section>
 
-<section class="ig-teaser">
-  <div class="container">
-    <a href="https://instagram.com/maybe.tattoo.de" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-      See more of our daily work on Instagram →
-    </a>
-  </div>
-</section>
-
-<div class="lightbox" id="lightbox">
-  <button class="lb-close" aria-label="Close">&times;</button>
-  <button class="lb-prev" aria-label="Previous">&#8249;</button>
-  <img src="" alt="Gallery image enlarged" />
-  <button class="lb-next" aria-label="Next">&#8250;</button>
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+  <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+  <figure class="lightbox-figure">
+    <img src="" alt="" id="lightboxImg" />
+    <figcaption>
+      <span class="lightbox-cat" id="lightboxCat"></span>
+      <a href="{{ url_for('contact') }}" class="btn btn-primary btn-sm" data-i18n="gallery_book_similar">{{ t('gallery_book_similar') }}</a>
+    </figcaption>
+  </figure>
+  <button class="lightbox-nav next" id="lightboxNext" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
 </div>
+{% endblock %}
 
+{% block scripts %}
+<script>
+  window.GALLERY_ACTIVE = "{{ active_category }}";
+</script>
 {% endblock %}

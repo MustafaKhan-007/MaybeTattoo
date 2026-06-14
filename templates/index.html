@@ -1,253 +1,160 @@
 {% extends "base.html" %}
-{% block title %}Maybe Tattoo Berlin — Tattoo Art. Perfected.{% endblock %}
 
 {% block content %}
-
-<!-- ============ SECTION 1: HERO ============ -->
-<section class="hero">
-  <div class="hero-bg" style="background-image: url('https://source.unsplash.com/1920x1080/?tattoo,studio,dark');"
-       data-fallback="https://picsum.photos/seed/maybe-hero/1920/1080"></div>
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="hero">
+  <div class="hero-bg" data-parallax style="background-image:url('{{ url_for('static', filename='img/gallery/realism/realism_03.jpeg') }}')"></div>
   <div class="hero-overlay"></div>
-
-  <div class="hero-content">
-    <h1 class="hero-title fade-in">Tattoo Art. Perfected.</h1>
-    <p class="hero-subtitle fade-in">Berlin's premier tattoo studio — where every design tells your story.</p>
-    <div class="hero-ctas fade-in">
-      <a href="{{ url_for('booking') }}" class="btn btn-primary btn-lg">Book Your Appointment</a>
-      <a href="{{ url_for('gallery') }}" class="btn btn-outline btn-lg">View Our Work</a>
+  <div class="hero-content reveal">
+    <h1 class="display" data-i18n="hero_title">{{ t('hero_title') }}</h1>
+    <p class="hero-sub" data-i18n="hero_sub">{{ t('hero_sub') }}</p>
+    <div class="hero-cta">
+      <a href="{{ url_for('contact') }}" class="btn btn-primary" data-i18n="hero_cta1">{{ t('hero_cta1') }}</a>
+      <a href="#gallery-preview" class="btn btn-ghost" data-i18n="hero_cta2">{{ t('hero_cta2') }}</a>
     </div>
   </div>
-
-  <a href="#stats" class="scroll-arrow" aria-label="Scroll down">
-    <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-  </a>
+  <div class="hero-scroll"><i class="fa-solid fa-chevron-down"></i></div>
 </section>
 
-<!-- ============ SECTION 2: STATS BAR ============ -->
-<section class="stats-bar" id="stats">
-  <div class="container">
-    <div class="stats-grid">
-      <div class="stat-item">
-        <div class="stat-number" data-target="14500" data-suffix="+">0</div>
-        <div class="stat-label">Satisfied Clients</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number" data-target="2000" data-suffix="+">0</div>
-        <div class="stat-label">5-Star Reviews</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number" data-target="9">0</div>
-        <div class="stat-label">Resident Artists</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number" data-target="5" data-suffix="+">0</div>
-        <div class="stat-label">Years in Berlin</div>
-      </div>
+<!-- ===================== STATS BAR ===================== -->
+<section class="stats-bar">
+  <div class="stats-inner">
+    {% for s in stats %}
+    <div class="stat reveal">
+      <span class="stat-num" data-count="{{ s.value }}" data-suffix="{{ s.suffix }}">0</span>
+      <span class="stat-label" data-i18n="{{ s.key }}">{{ t(s.key) }}</span>
     </div>
+    {% if not loop.last %}<span class="stat-divider"></span>{% endif %}
+    {% endfor %}
   </div>
 </section>
 
-<!-- ============ SECTION 3: ABOUT / VIDEO ============ -->
-<section class="section about">
-  <div class="container">
-    <div class="two-col">
-      <div class="about-text slide-left">
-        <h2>How We Work</h2>
-        <p>At Maybe Tattoo, every piece begins with a conversation. Our artists work with you to design something truly unique — from initial sketch to final ink.</p>
-        <a href="#" class="text-link">See our full process
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </a>
-      </div>
-      <div class="video-card slide-right">
-        <!-- TODO: Replace REPLACE_WITH_ACTUAL_ID with the real YouTube video ID from the client -->
-        <iframe width="100%" height="315" src="https://www.youtube.com/embed/REPLACE_WITH_ACTUAL_ID" title="Maybe Tattoo — How We Work" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
+<!-- ===================== INTRO VIDEO ===================== -->
+<section class="video-section section">
+  <div class="container video-grid">
+    <div class="video-wrap reveal">
+      {% if studio.youtube_id %}
+      <iframe src="https://www.youtube.com/embed/{{ studio.youtube_id }}?rel=0&modestbranding=1&autoplay=0"
+              title="How We Work" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+      {% else %}
+      <button class="video-placeholder" id="videoPlaceholder" aria-label="Play video">
+        <span class="play-btn"><i class="fa-solid fa-play"></i></span>
+        <span class="video-placeholder-label" data-i18n="video_placeholder">{{ t('video_placeholder') }}</span>
+      </button>
+      {% endif %}
+    </div>
+    <div class="video-text reveal">
+      <h2 class="display" data-i18n="video_title">{{ t('video_title') }}</h2>
+      <p data-i18n="video_body">{{ t('video_body') }}</p>
+      <a href="{{ url_for('contact') }}" class="btn btn-primary" data-i18n="video_cta">{{ t('video_cta') }}</a>
     </div>
   </div>
 </section>
 
-<!-- ============ SECTION 4: GALLERY PREVIEW ============ -->
-<section class="section">
+<!-- ===================== SERVICES ===================== -->
+<section class="section services-section" id="services">
   <div class="container">
-    <h2 class="section-heading fade-in">Our Work</h2>
-    <p class="section-subtitle fade-in">A glimpse of what our artists create.</p>
-
-    <div class="tabs scrollable fade-in" data-gallery-tabs data-grid="gallery-grid">
-      <button class="tab active" data-category="grafik">Tattoo Grafik</button>
-      <button class="tab" data-category="realismus">Tattoo Realismus</button>
-      <button class="tab" data-category="mini">Mini Tattoo</button>
-      <button class="tab" data-category="overlapping">Overlapping</button>
-      <button class="tab" data-category="farbrealismus">Farbrealismus</button>
-      <button class="tab" data-category="polynesien">Zierpflanze / Polynesien</button>
+    <div class="section-head reveal">
+      <h2 class="display" data-i18n="services_title">{{ t('services_title') }}</h2>
+      <p data-i18n="services_sub">{{ t('services_sub') }}</p>
     </div>
-
-    <div id="gallery-grid" class="gallery-grid fade-in" data-count="6" data-w="600" data-h="800"></div>
-
-    <div class="center-cta">
-      <a href="{{ url_for('gallery') }}" class="btn btn-primary">View Full Gallery</a>
+    <div class="services-scroll">
+      {% for svc in services %}
+      <a href="{{ url_for('gallery') }}?category={{ svc.slug }}" class="service-card reveal">
+        <i class="fa-solid {{ svc.icon }}"></i>
+        <h3 data-i18n="{{ svc.key }}">{{ t(svc.key) }}</h3>
+        <p data-i18n="{{ svc.key }}_d">{{ t(svc.key ~ '_d') }}</p>
+        <span class="service-link" data-i18n="svc_examples">{{ t('svc_examples') }}</span>
+      </a>
+      {% endfor %}
     </div>
   </div>
 </section>
 
-<!-- ============ SECTION 5: ARTIST SPOTLIGHT ============ -->
-<section class="section" style="background:#0f0f0f;">
+<!-- ===================== FEATURED ARTISTS ===================== -->
+<section class="section artists-preview">
   <div class="container">
-    <h2 class="section-heading fade-in">Meet Our Artists</h2>
-    <p class="section-subtitle fade-in">Masters of their craft, each with a signature style.</p>
-
-    <div class="artist-cards">
-      <div class="artist-card fade-in">
-        <img class="artist-photo" src="https://source.unsplash.com/400x500/?tattoo,artist,portrait&sig=1"
-             onerror="this.onerror=null;this.src='https://picsum.photos/seed/valerii/400/500';" alt="Valerii" loading="lazy" />
+    <div class="section-head reveal">
+      <h2 class="display" data-i18n="artists_title">{{ t('artists_title') }}</h2>
+      <p data-i18n="artists_sub">{{ t('artists_sub') }}</p>
+    </div>
+    <div class="artists-grid preview">
+      {% for a in featured_artists %}
+      <div class="artist-card reveal">
+        <div class="artist-photo">
+          <img src="{{ url_for('static', filename=artist_photo(a.slug)) }}" alt="{{ a.name }}" loading="lazy" />
+        </div>
         <div class="artist-body">
-          <h3 class="artist-name">Valerii</h3>
-          <div class="artist-exp">20 Years Experience</div>
-          <div class="artist-count">2,935 tattoos completed</div>
-          <div class="style-tags">
-            <span class="style-tag">Realistic</span>
-            <span class="style-tag">Graphic</span>
-            <span class="style-tag">Japanese</span>
-            <span class="style-tag">Biomechanical</span>
-            <span class="style-tag">Old School</span>
-          </div>
-          <a href="{{ url_for('artists') }}" class="btn btn-outline">View Work</a>
+          <h3>{{ a.name }}</h3>
+          <p class="artist-styles">{{ a.styles | join(' · ') }}</p>
+          <p class="artist-meta">{{ a.years }} <span data-i18n="years_exp">{{ t('years_exp') }}</span></p>
+          <a href="{{ url_for('artists') }}#{{ a.slug }}" class="btn btn-outline btn-sm" data-i18n="artists_view">{{ t('artists_view') }}</a>
         </div>
       </div>
+      {% endfor %}
+    </div>
+    <div class="center-link reveal">
+      <a href="{{ url_for('artists') }}" class="link-lg" data-i18n="artists_all">{{ t('artists_all') }}</a>
+    </div>
+  </div>
+</section>
 
-      <div class="artist-card fade-in">
-        <img class="artist-photo" src="https://source.unsplash.com/400x500/?tattoo,artist,studio&sig=2"
-             onerror="this.onerror=null;this.src='https://picsum.photos/seed/christian/400/500';" alt="Christian" loading="lazy" />
-        <div class="artist-body">
-          <h3 class="artist-name">Christian</h3>
-          <div class="artist-exp">22 Years Experience</div>
-          <div class="artist-count">4,287 tattoos completed</div>
-          <div class="style-tags">
-            <span class="style-tag">Full Realistic</span>
-            <span class="style-tag">Micro Realism</span>
-          </div>
-          <a href="{{ url_for('artists') }}" class="btn btn-outline">View Work</a>
+<!-- ===================== GALLERY PREVIEW ===================== -->
+<section class="section gallery-preview-section" id="gallery-preview">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 class="display" data-i18n="gallery_title">{{ t('gallery_title') }}</h2>
+      <p data-i18n="gallery_sub">{{ t('gallery_sub') }}</p>
+    </div>
+    <div class="masonry">
+      {% for img in gallery_preview %}
+      <a class="masonry-item reveal" href="{{ url_for('static', filename=img.src) }}" data-lightbox data-category="{{ img.category }}">
+        <img src="{{ url_for('static', filename=img.src) }}" alt="{{ img.category }} tattoo" loading="lazy" />
+        <span class="masonry-cat" data-i18n="cat_{{ img.category }}">{{ t('cat_' ~ img.category) }}</span>
+      </a>
+      {% endfor %}
+    </div>
+    <div class="center-link reveal">
+      <a href="{{ url_for('gallery') }}" class="btn btn-primary" data-i18n="gallery_view_full">{{ t('gallery_view_full') }}</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TESTIMONIALS ===================== -->
+<section class="section reviews-section">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 class="display" data-i18n="reviews_title">{{ t('reviews_title') }}</h2>
+    </div>
+    <div class="reviews-scroll">
+      {% for r in reviews %}
+      <div class="review-card reveal">
+        <div class="stars">{% for _ in range(5) %}<i class="fa-solid fa-star"></i>{% endfor %}</div>
+        <p class="review-text" data-i18n-review-en="{{ r.text_en }}" data-i18n-review-de="{{ r.text_de }}">{{ r.text_en if lang == 'en' else r.text_de }}</p>
+        <div class="review-author">
+          <strong>{{ r.name }}</strong>
+          <span class="review-source"><i class="fa-brands fa-google"></i> <span data-i18n="reviews_source">{{ t('reviews_source') }}</span></span>
         </div>
       </div>
-
-      <div class="artist-card fade-in">
-        <img class="artist-photo" src="https://source.unsplash.com/400x500/?tattoo,artist,woman&sig=3"
-             onerror="this.onerror=null;this.src='https://picsum.photos/seed/viktoria/400/500';" alt="Viktoria" loading="lazy" />
-        <div class="artist-body">
-          <h3 class="artist-name">Viktoria</h3>
-          <div class="artist-exp">6 Years Experience</div>
-          <div class="artist-count">1,213 tattoos completed</div>
-          <div class="style-tags">
-            <span class="style-tag">Realismus</span>
-            <span class="style-tag">Japan</span>
-            <span class="style-tag">Anime</span>
-          </div>
-          <a href="{{ url_for('artists') }}" class="btn btn-outline">View Work</a>
-        </div>
-      </div>
+      {% endfor %}
     </div>
-
-    <div class="center-cta">
-      <a href="{{ url_for('artists') }}" class="btn btn-primary">Meet All Our Artists</a>
+    <div class="center-link reveal">
+      <a href="{{ studio.reviews_link }}" target="_blank" rel="noopener" class="link-lg" data-i18n="reviews_all">{{ t('reviews_all') }}</a>
     </div>
   </div>
 </section>
 
-<!-- ============ SECTION 6: TESTIMONIALS ============ -->
-<section class="section testimonials">
-  <div class="container">
-    <h2 class="section-heading fade-in">What Our Clients Say</h2>
-    <p class="section-subtitle fade-in">Rated 5.0 on Google Maps.</p>
-
-    <div class="review-row fade-in">
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <p class="review-text">"Absolutely incredible experience. The design was exactly what I had in mind and the execution was perfect."</p>
-        <div class="review-author">Anna M. — Arm Tattoo</div>
-      </div>
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <p class="review-text">"The most professional studio I've been to in Berlin. Clean, calm, and the artists really listen to you."</p>
-        <div class="review-author">Lukas R. — Sleeve</div>
-      </div>
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <p class="review-text">"My realism portrait looks like a photograph. Worth every minute. Already booked my next session."</p>
-        <div class="review-author">Sofia K. — Portrait</div>
-      </div>
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <p class="review-text">"From consultation to the final result, everything was flawless. Highly recommend Maybe Tattoo."</p>
-        <div class="review-author">Daniel B. — Back Piece</div>
-      </div>
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <p class="review-text">"Beautiful fine-line work and such a welcoming atmosphere. I felt comfortable the whole time."</p>
-        <div class="review-author">Mira T. — Mini Tattoo</div>
-      </div>
-    </div>
-
-    <div class="reviews-link">
-      <a href="https://goo.gl/maps/LXZLv4wHieKJCbLs7" target="_blank" rel="noopener">Read all reviews on Google Maps →</a>
+<!-- ===================== CTA STRIP ===================== -->
+<section class="cta-strip">
+  <div class="container cta-inner reveal">
+    <h2 class="display" data-i18n="cta_title">{{ t('cta_title') }}</h2>
+    <p data-i18n="cta_sub">{{ t('cta_sub') }}</p>
+    <div class="cta-buttons">
+      <a href="{{ url_for('contact') }}" class="btn btn-dark" data-i18n="cta_book">{{ t('cta_book') }}</a>
+      <a href="tel:{{ studio.phone_tel }}" class="btn btn-outline-light" data-i18n="cta_call">{{ t('cta_call') }}</a>
     </div>
   </div>
 </section>
-
-<!-- ============ SECTION 7: LOCATION ============ -->
-<section class="section">
-  <div class="container">
-    <div class="two-col">
-      <div class="location-info slide-left">
-        <h2>Find Us in Berlin</h2>
-        <p><strong>Dusseldorfer-Straße 48</strong><br/>10707 Berlin, Germany</p>
-        <p><strong>Phone:</strong> <a href="tel:+493052014472" style="color:var(--accent-gold)">+49 30 52014472</a></p>
-        <p><strong>Hours:</strong> Monday–Sunday, 10:00–22:00</p>
-        <p>
-          <a href="https://instagram.com/maybe.tattoo.de" target="_blank" rel="noopener" style="color:var(--accent-gold)">Instagram</a>
-          &nbsp;·&nbsp;
-          <a href="https://wa.me/4917667383970" target="_blank" rel="noopener" style="color:var(--accent-gold)">WhatsApp</a>
-        </p>
-        <a href="https://goo.gl/maps/p6c6DBGaWE1uQLmE7" target="_blank" rel="noopener" class="btn btn-primary">Get Directions</a>
-      </div>
-      <div class="map-frame slide-right">
-        <iframe src="https://www.google.com/maps?q=Dusseldorfer-Stra%C3%9Fe%2048,%2010707%20Berlin&output=embed" title="Maybe Tattoo location map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ SECTION 8: FINAL CTA ============ -->
-<section class="section-sm cta-banner">
-  <div class="container">
-    <h2 class="fade-in">Ready for Your Next Tattoo?</h2>
-    <p class="fade-in">Book a free consultation — no commitment needed.</p>
-    <div class="hero-ctas fade-in">
-      <a href="{{ url_for('booking') }}" class="btn btn-primary btn-lg">Book Now</a>
-      <a href="{{ url_for('contact') }}" class="btn btn-outline btn-lg">Contact Us</a>
-    </div>
-  </div>
-</section>
-
-<!-- Lightbox (shared markup) -->
-<div class="lightbox" id="lightbox">
-  <button class="lb-close" aria-label="Close">&times;</button>
-  <button class="lb-prev" aria-label="Previous">&#8249;</button>
-  <img src="" alt="Gallery image enlarged" />
-  <button class="lb-next" aria-label="Next">&#8250;</button>
-</div>
-
-{% endblock %}
-
-{% block scripts %}
-<script>
-  // Hero background fallback if the live image source fails.
-  (function () {
-    var bg = document.querySelector('.hero-bg');
-    if (!bg) return;
-    var probe = new Image();
-    probe.onerror = function () {
-      bg.style.backgroundImage = "url('" + bg.dataset.fallback + "')";
-    };
-    probe.src = 'https://source.unsplash.com/1920x1080/?tattoo,studio,dark';
-  })();
-</script>
 {% endblock %}
